@@ -33,7 +33,7 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 	public void eliminar(Integer id) {
 		// TODO Auto-generated method stub
 		
-		this.entityManager.merge(this.seleccionar(id));
+		this.entityManager.remove(this.seleccionar(id));
 	}
 
 	@Override
