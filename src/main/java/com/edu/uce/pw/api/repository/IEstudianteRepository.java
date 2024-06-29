@@ -1,5 +1,7 @@
 package com.edu.uce.pw.api.repository;
 
+import java.util.List;
+
 import com.edu.uce.pw.api.repository.modelo.Estudiante;
 
 public interface IEstudianteRepository {
@@ -12,4 +14,6 @@ public interface IEstudianteRepository {
 	public void eliminar(Integer id);
 	
 	public void insertar(Estudiante estudiante);
+	
+	public List<Estudiante> seleccionarPorGenero(String genero);
 }
