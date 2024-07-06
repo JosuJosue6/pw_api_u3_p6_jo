@@ -1,5 +1,7 @@
 package com.edu.uce.pw.api.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,12 @@ public class MateriaServiceImpl implements IMateriaService{
 	public void borrar(Integer id) {
 		// TODO Auto-generated method stub
 		this.materiaRepository.eliminar(id);
+	}
+
+	@Override
+	public List<Materia> buscarMateria(String estado) {
+		// TODO Auto-generated method stub
+		return this.materiaRepository.seleccionarMateria(estado);
 	}
 
 }

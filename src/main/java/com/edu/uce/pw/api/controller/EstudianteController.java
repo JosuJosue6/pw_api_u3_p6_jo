@@ -1,9 +1,9 @@
 package com.edu.uce.pw.api.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,27 +28,32 @@ public class EstudianteController {
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/guardar
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes
 	@PostMapping
-	public void guardar(@RequestBody Estudiante estudiante) {
+	public ResponseEntity<Estudiante> guardar(@RequestBody Estudiante estudiante) {
 		// Estudiante est = new Estudiante();
 		// est.setNombre("Josu");
 		// est.setApellido("Ocapana");
 		// est.setFechaNacimiento(LocalDateTime.of(2000, 7, 7, 11, 1, 45,5));
+
+		// Creacion de los codigos de estado personalizado*************
+
 		this.estudianteService.guardar(estudiante);
+		return ResponseEntity.status(201).body(estudiante);
 
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/actualizar
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
 	@PutMapping(path = "/{id}")
-	public void actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
+	public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
 		estudiante.setId(id);
 		this.estudianteService.actualizar(estudiante);
+		return ResponseEntity.status(238).body(estudiante);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/actualizarParcial
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
 	@PatchMapping(path = "/{id}")
-	public void actualizarParcial(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
+	public ResponseEntity<Estudiante> actualizarParcial(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
 		estudiante.setId(id);
 		Estudiante estudiante2 = this.estudianteService.buscar(estudiante.getId());
 		if (estudiante.getNombre() != null) {
@@ -61,6 +66,7 @@ public class EstudianteController {
 			estudiante2.setFechaNacimiento(estudiante.getFechaNacimiento());
 		}
 		this.estudianteService.actualizar(estudiante2);
+		return ResponseEntity.status(239).body(estudiante2);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/borrar
@@ -68,16 +74,18 @@ public class EstudianteController {
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/borrar/2
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
 	@DeleteMapping(path = "/{id}")
-	public void borrar(@PathVariable Integer id) {
+	public ResponseEntity<String> borrar(@PathVariable Integer id) {
 
 		this.estudianteService.borrar(id);
+		
+		return ResponseEntity.status(240).body("Borrado ****");
 	}
 
 	// http://localhost:8082/API/v1.0/Matricula/estudiantes/buscar/2/nuevo/prueba
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
 	@GetMapping(path = "/{id}")
-	public Estudiante buscarPorId(@PathVariable Integer id) {
-		return this.estudianteService.buscar(id);
+	public ResponseEntity<Estudiante> buscarPorId(@PathVariable Integer id) {
+		return ResponseEntity.status(240).body(this.estudianteService.buscar(id));
 
 	}
 
