@@ -3,6 +3,7 @@ package com.edu.uce.pw.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,8 +86,15 @@ public class EstudianteController {
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<Estudiante> buscarPorId(@PathVariable Integer id) {
-		return ResponseEntity.status(240).body(this.estudianteService.buscar(id));
-
+		/*String prueba = null;
+		prueba.contains("h");*/
+		//No envio cabeceras
+		//return ResponseEntity.status(240).body(this.estudianteService.buscar(id));
+		//para enviar cabeceras primero la construyo
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_236", "Corresponde a la consulta de un recurso.");
+		cabeceras.add("Valor ", "Estudiante encontrado");
+		return new ResponseEntity<>(this.estudianteService.buscar(id),cabeceras,236 );
 	}
 
 	// http://localhost:8082/API/v1.0/Matricula/estudiantes/buscarPorGenero?genero=M&edad=35
