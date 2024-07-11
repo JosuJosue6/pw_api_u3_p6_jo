@@ -38,7 +38,10 @@ public class EstudianteController {
 		// Creacion de los codigos de estado personalizado*************
 
 		this.estudianteService.guardar(estudiante);
-		return ResponseEntity.status(201).body(estudiante);
+		//return ResponseEntity.status(201).body(estudiante);
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_201", "Corresponde a la insercion de un recurso.");
+		return new ResponseEntity<>(estudiante,cabeceras,201 );
 
 	}
 
@@ -48,7 +51,10 @@ public class EstudianteController {
 	public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
 		estudiante.setId(id);
 		this.estudianteService.actualizar(estudiante);
-		return ResponseEntity.status(238).body(estudiante);
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_238", "Corresponde a la actualizacion completa de un recurso.");
+		return new ResponseEntity<>(estudiante,cabeceras,238);
+		//return ResponseEntity.status(238).body(estudiante);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/actualizarParcial
@@ -67,7 +73,10 @@ public class EstudianteController {
 			estudiante2.setFechaNacimiento(estudiante.getFechaNacimiento());
 		}
 		this.estudianteService.actualizar(estudiante2);
-		return ResponseEntity.status(239).body(estudiante2);
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_239", "Corresponde a la actualizacion parcial de un recurso.");
+		return new ResponseEntity<>(estudiante2,cabeceras,239 );
+		//return ResponseEntity.status(239).body(estudiante2);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/borrar
@@ -79,7 +88,11 @@ public class EstudianteController {
 
 		this.estudianteService.borrar(id);
 		
-		return ResponseEntity.status(240).body("Borrado ****");
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_240", "Corresponde a la eliminacion de un recurso.");
+		return new ResponseEntity<>("Borrado ****",cabeceras,240);
+		
+		//return ResponseEntity.status(240).body("Borrado ****");
 	}
 
 	// http://localhost:8082/API/v1.0/Matricula/estudiantes/buscar/2/nuevo/prueba
@@ -102,9 +115,13 @@ public class EstudianteController {
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscarPorGenero?genero=M&edad=24
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/genero?genero=M
 	@GetMapping(path = "/genero")
-	public List<Estudiante> buscarPorGenero(@RequestParam String genero) {
+	public ResponseEntity<List<Estudiante>> buscarPorGenero(@RequestParam String genero) {
 		List<Estudiante> lista = this.estudianteService.buscarPorGenero(genero);
-		return lista;
+		//return lista;
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_236", "Corresponde a la consulta de un recurso.");
+		cabeceras.add("Valor ", "Estudiante encontrado");
+		return new ResponseEntity<>(lista,cabeceras,236 );
 
 	}
 
@@ -112,18 +129,25 @@ public class EstudianteController {
 	// Nivel
 	// 1:http://localhost:8080/API/v1.0/Matricula/estudiantes/mixto/3?prueba=HolaMundo
 	@GetMapping(path = "/mixto/{id}")
-	public Estudiante buscarMixto(@PathVariable Integer id, @RequestParam String prueba) {
+	public ResponseEntity<Estudiante> buscarMixto(@PathVariable Integer id, @RequestParam String prueba) {
 		System.out.println("ID: " + id);
 		System.out.println("PRueba: " + prueba);
-		return this.estudianteService.buscar(id);
+		//return this.estudianteService.buscar(id);
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_236", "Corresponde a la consulta de un recurso.");
+		cabeceras.add("Valor ", "Estudiante encontrado");
+		return new ResponseEntity<>(this.estudianteService.buscar(id),cabeceras,236 );
 	}
 
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/test/4
 	@GetMapping(path = "/test/{id}")
-	public Estudiante test(@PathVariable Integer id, @RequestBody Estudiante estudiante) {
+	public ResponseEntity<Estudiante> test(@PathVariable Integer id, @RequestBody Estudiante estudiante) {
 		System.out.println(estudiante);
-		return this.estudianteService.buscar(id);
-
+		//return this.estudianteService.buscar(id);
+		HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_236", "Corresponde a la consulta de un recurso.");
+		cabeceras.add("Valor ", "Estudiante encontrado");
+		return new ResponseEntity<>(this.estudianteService.buscar(id),cabeceras,236 );
 	}
 
 }
