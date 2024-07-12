@@ -29,29 +29,29 @@ public class MateriaController {
 	// http://localhost:8080/API/v1.0/Matricula/materias/guardar
 	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/materias
 	@PostMapping
-	public ResponseEntity<Materia> guardar(@RequestBody Materia materia) {
+	public void guardar(@RequestBody Materia materia) {
 		
 		this.materiaService.guardar(materia);
-		HttpHeaders cabeceras = new HttpHeaders();
+		/*HttpHeaders cabeceras = new HttpHeaders();
 		cabeceras.add("mensaje_201", "Corresponde a la insercion de un recurso.");
-		return new ResponseEntity<>(materia,cabeceras,201);
+		return new ResponseEntity<>(materia,cabeceras,201);*/
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/materias/actualizar
 	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/materias
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<Materia> actualizar(@RequestBody Materia materia, @PathVariable Integer id) {
+	public void actualizar(@RequestBody Materia materia, @PathVariable Integer id) {
 		materia.setId(id);
 		this.materiaService.actualizar(materia);
-		HttpHeaders cabeceras = new HttpHeaders();
+		/*HttpHeaders cabeceras = new HttpHeaders();
 		cabeceras.add("mensaje_238", "Corresponde a la actualizacion completa de un recurso.");
-		return new ResponseEntity<>(materia,cabeceras,238);
+		return new ResponseEntity<>(materia,cabeceras,238);*/
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/materias/actualizarParcial
 	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/materias
 	@PatchMapping(path = "/{id}")
-	public ResponseEntity<Materia> actualizarParcial(@RequestBody Materia materia, @PathVariable Integer id) {
+	public void actualizarParcial(@RequestBody Materia materia, @PathVariable Integer id) {
 
 		materia.setId(id);
 		Materia materia2 = this.materiaService.buscar(materia.getId());
@@ -69,41 +69,41 @@ public class MateriaController {
 		}
 		this.materiaService.actualizar(materia2);
 		
-		HttpHeaders cabeceras = new HttpHeaders();
+		/*HttpHeaders cabeceras = new HttpHeaders();
 		cabeceras.add("mensaje_239", "Corresponde a la actualizacion parcial de un recurso.");
-		return new ResponseEntity<>(materia2,cabeceras,239);
+		return new ResponseEntity<>(materia2,cabeceras,239);*/
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/materias/buscar/
 	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/materias
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Materia> buscar(@PathVariable Integer id) {
+	public Materia buscar(@PathVariable Integer id) {
 
-		HttpHeaders cabeceras = new HttpHeaders();
-		cabeceras.add("mensaje_236", "Corresponde a la actualizacion parcial de un recurso.");
-		return new ResponseEntity<>(this.materiaService.buscar(id),cabeceras,236);
+		/*HttpHeaders cabeceras = new HttpHeaders();
+		cabeceras.add("mensaje_236", "Corresponde a la actualizacion parcial de un recurso.");*/
+		return this.materiaService.buscar(id);
 	}
 
 	// http://localhost:8080/API/v1.0/Matricula/materias/borrar/
 	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/materias/
 	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<String> borrar(@PathVariable Integer id) {
+	public void borrar(@PathVariable Integer id) {
 
 		this.materiaService.borrar(id);
-		HttpHeaders cabeceras = new HttpHeaders();
+		/*HttpHeaders cabeceras = new HttpHeaders();
 		cabeceras.add("mensaje_240", "Corresponde a la eliminacion de un recurso.");
-		return new ResponseEntity<>("Borrado",cabeceras,240);
+		return new ResponseEntity<>("Borrado",cabeceras,240);*/
 	}
 
 	// NIVEL 1:
 	// http://localhost:8082/API/v1.0/Matricula/materias/materia?estado=Matriculado
 	@GetMapping(path = "/materia")
-	public ResponseEntity<List<Materia>> buscarMateria(@RequestParam String estado) {
-		//List<Materia> lista = this.materiaService.buscarMateria(estado);
-		//return lista;
-		HttpHeaders cabeceras = new HttpHeaders();
+	public List<Materia> buscarMateria(@RequestParam String estado) {
+		List<Materia> lista = this.materiaService.buscarMateria(estado);
+		return lista;
+		/*HttpHeaders cabeceras = new HttpHeaders();
 		cabeceras.add("mensaje_236", "Corresponde a la actualizacion parcial de un recurso.");
-		return new ResponseEntity<>(this.materiaService.buscarMateria(estado),cabeceras,236);
+		return new ResponseEntity<>(this.materiaService.buscarMateria(estado),cabeceras,236);*/
 
 	}
 
