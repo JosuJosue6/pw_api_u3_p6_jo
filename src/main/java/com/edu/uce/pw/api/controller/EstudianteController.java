@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,7 @@ public class EstudianteController {
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/guardar
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes
-	@PostMapping
+	@PostMapping(produces = "application/json", consumes = "application/xml")
 	public ResponseEntity<Estudiante> guardar(@RequestBody Estudiante estudiante) {
 		// Estudiante est = new Estudiante();
 		// est.setNombre("Josu");
@@ -47,7 +49,7 @@ public class EstudianteController {
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/actualizar
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
-	@PutMapping(path = "/{id}")
+	@PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Estudiante> actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
 		estudiante.setId(id);
 		this.estudianteService.actualizar(estudiante);
@@ -59,7 +61,7 @@ public class EstudianteController {
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/actualizarParcial
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
-	@PatchMapping(path = "/{id}")
+	@PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Estudiante> actualizarParcial(@RequestBody Estudiante estudiante, @PathVariable Integer id) {
 		estudiante.setId(id);
 		Estudiante estudiante2 = this.estudianteService.buscar(estudiante.getId());
@@ -83,7 +85,7 @@ public class EstudianteController {
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/borrar/1
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/borrar/2
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> borrar(@PathVariable Integer id) {
 
 		this.estudianteService.borrar(id);
@@ -97,7 +99,7 @@ public class EstudianteController {
 
 	// http://localhost:8082/API/v1.0/Matricula/estudiantes/buscar/2/nuevo/prueba
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/{id}
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Estudiante> buscarPorId(@PathVariable Integer id) {
 		/*String prueba = null;
 		prueba.contains("h");*/
@@ -114,7 +116,7 @@ public class EstudianteController {
 
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscarPorGenero?genero=M&edad=24
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/genero?genero=M
-	@GetMapping(path = "/genero")
+	@GetMapping(path = "/genero", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<List<Estudiante>> buscarPorGenero(@RequestParam String genero) {
 		List<Estudiante> lista = this.estudianteService.buscarPorGenero(genero);
 		//return lista;
@@ -128,7 +130,7 @@ public class EstudianteController {
 	// http://localhost:8080/API/v1.0/Matricula/estudiantes/buscarMixto/3?prueba=HolaMundo
 	// Nivel
 	// 1:http://localhost:8080/API/v1.0/Matricula/estudiantes/mixto/3?prueba=HolaMundo
-	@GetMapping(path = "/mixto/{id}")
+	@GetMapping(path = "/mixto/{id}", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Estudiante> buscarMixto(@PathVariable Integer id, @RequestParam String prueba) {
 		System.out.println("ID: " + id);
 		System.out.println("PRueba: " + prueba);
@@ -140,7 +142,7 @@ public class EstudianteController {
 	}
 
 	// Nivel 1: http://localhost:8080/API/v1.0/Matricula/estudiantes/test/4
-	@GetMapping(path = "/test/{id}")
+	@GetMapping(path = "/test/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Estudiante> test(@PathVariable Integer id, @RequestBody Estudiante estudiante) {
 		System.out.println(estudiante);
 		//return this.estudianteService.buscar(id);
