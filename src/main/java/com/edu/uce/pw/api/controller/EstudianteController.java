@@ -185,5 +185,22 @@ public class EstudianteController {
 	public List<MateriaTO> buscarMateriasPorIdEstudiantes(@PathVariable Integer id) {
 		return this.materiaService.buscarPorIdEstudiante(id);
 	}
+	
+	@GetMapping(path = "/todosHateoas", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<EstudianteTO> buscarTodos(){
+		List<EstudianteTO> ls = this.estudianteService.buscarTodos();
+		for (EstudianteTO estu : ls) {
+			Link myLink = linkTo(methodOn(EstudianteController.class).buscarMateriasPorIdEstudiantes(estu.getId()))
+					.withRel("susMaterias");
+			Link myLink2 = linkTo(methodOn(EstudianteController.class).buscarPorId(estu.getId())).withSelfRel();
+			
+			estu.add(myLink);
+			estu.add(myLink2);
+		}
+		
+		return ls;
+	}
+	
+	
 
 }
