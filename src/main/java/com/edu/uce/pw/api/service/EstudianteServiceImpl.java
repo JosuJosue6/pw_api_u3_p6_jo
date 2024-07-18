@@ -53,6 +53,7 @@ public class EstudianteServiceImpl implements IEstudianteService{
 		estudianteTO.setNombre(estudiante.getNombre());
 		estudianteTO.setApellido(estudiante.getApellido());
 		estudianteTO.setFechaNacimiento(estudiante.getFechaNacimiento());
+		estudianteTO.setGenero(estudiante.getGenero());
 		return estudianteTO;
 	}
 
