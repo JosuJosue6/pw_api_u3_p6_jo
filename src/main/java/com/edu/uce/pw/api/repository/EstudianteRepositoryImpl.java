@@ -57,8 +57,17 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 	public List<Estudiante> seleccionarTodos() {
 		// TODO Auto-generated method stub
 		TypedQuery<Estudiante> myQuery = this.entityManager.createQuery("SELECT e from Estudiante e", Estudiante.class);
-		
+
 		return myQuery.getResultList();
+	}
+
+	@Override
+	public Estudiante seleccionarPorCedula(String cedula) {
+		// TODO Auto-generated method stub
+		TypedQuery<Estudiante> myQuery = this.entityManager
+				.createQuery("SELECT e from Estudiante e WHERE e.cedula = :cedula", Estudiante.class);
+		myQuery.setParameter("cedula", cedula);
+		return myQuery.getSingleResult();
 	}
 
 }

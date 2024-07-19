@@ -9,6 +9,8 @@ public interface IEstudianteService {
 
 	public EstudianteTO buscarPorID(Integer id);//hateoas
 	
+	public EstudianteTO buscarPorCedula(String cedula);
+	
 	public Estudiante buscar(Integer id);
 
 	public void actualizar(Estudiante estudiante);

@@ -79,4 +79,10 @@ public class EstudianteServiceImpl implements IEstudianteService{
 		return lsTO;
 	}
 
+	@Override
+	public EstudianteTO buscarPorCedula(String cedula) {
+		// TODO Auto-generated method stub
+		return this.convertir(this.estudianteRepository.seleccionarPorCedula(cedula));
+	}
+
 }

@@ -201,6 +201,24 @@ public class EstudianteController {
 		return ls;
 	}
 	
+	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/estudiantes/cedula/{id}
+	@GetMapping(path = "/cedula/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public EstudianteTO buscarPorCedula(@PathVariable String cedula) {
+		return this.buscarPorCedula(cedula);
+	}
+	
+	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/estudiantes/cedula/{id}
+	@DeleteMapping(path = "/cedula/{cedula}")
+	public void borrarPorCedula(String cedula) {
+		this.estudianteService.buscarPorCedula(cedula);
+	}
+	
+	/*@PutMapping(path = "/cedula/{cedula}")
+	public void actualizarPorCedula(String cedula){
+		EstudianteTO estudianteTO = this.buscarPorCedula(cedula);
+		this.estudianteService.actualizar(estudianteTO);
+		
+	}*/
 	
 
 }

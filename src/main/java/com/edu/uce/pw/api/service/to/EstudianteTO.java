@@ -24,6 +24,8 @@ public class EstudianteTO extends RepresentationModel<EstudianteTO> implements S
 	
 	private String genero;
 	
+	private String cedula;
+	
 	private List<MateriaTO> materias;
 
 	//SET y GET
@@ -73,6 +75,14 @@ public class EstudianteTO extends RepresentationModel<EstudianteTO> implements S
 
 	public void setMaterias(List<MateriaTO> materias) {
 		this.materias = materias;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 	
 	
