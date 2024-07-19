@@ -213,12 +213,12 @@ public class EstudianteController {
 		this.estudianteService.buscarPorCedula(cedula);
 	}
 	
-	/*@PutMapping(path = "/cedula/{cedula}")
+	@PutMapping(path = "/cedula/{cedula}")
 	public void actualizarPorCedula(String cedula){
 		EstudianteTO estudianteTO = this.buscarPorCedula(cedula);
-		this.estudianteService.actualizar(estudianteTO);
+		this.estudianteService.actualizar(this.buscarPorId(estudianteTO.getId()));
 		
-	}*/
+	}
 	
 
 }
