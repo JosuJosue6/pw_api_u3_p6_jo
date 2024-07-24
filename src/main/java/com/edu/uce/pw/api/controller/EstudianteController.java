@@ -201,7 +201,7 @@ public class EstudianteController {
 		return ls;
 	}
 	
-	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/estudiantes/cedula/{id}
+	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/estudiantes/cedula/{cedula}
 	@GetMapping(path = "/cedula/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstudianteTO buscarPorCedula(@PathVariable String cedula) {
 		return this.buscarPorCedula(cedula);
@@ -210,13 +210,15 @@ public class EstudianteController {
 	// Nivel 1: http://localhost:8082/API/v1.0/Matricula/estudiantes/cedula/{id}
 	@DeleteMapping(path = "/cedula/{cedula}")
 	public void borrarPorCedula(String cedula) {
-		this.estudianteService.buscarPorCedula(cedula);
+		EstudianteTO estudianteTO = this.buscarPorCedula(cedula);
+		this.estudianteService.borrar(estudianteTO.getId());
 	}
 	
 	@PutMapping(path = "/cedula/{cedula}")
-	public void actualizarPorCedula(String cedula){
+	public void actualizarPorCedula(@PathVariable String cedula, @RequestBody Estudiante estudiante){
 		EstudianteTO estudianteTO = this.buscarPorCedula(cedula);
-		this.estudianteService.actualizar(this.buscarPorId(estudianteTO.getId()));
+		estudiante.setId(estudianteTO.getId());
+		this.estudianteService.actualizar(estudiante);
 		
 	}
 	
